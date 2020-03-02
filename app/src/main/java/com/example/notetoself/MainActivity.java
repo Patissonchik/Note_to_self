@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    Note tempNote = new Note;
+    Note tempNote = new Note();
     public void createNewNote(Note note){
         tempNote = note;
     }
