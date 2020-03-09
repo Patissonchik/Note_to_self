@@ -13,10 +13,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
-    Note tempNote = new Note();
+    ArrayList<Note> listNote = new ArrayList<>();
+
     public void createNewNote(Note note){
-        tempNote = note;
+        listNote.add(note);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,15 +28,23 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DialogNewNote dialog = new DialogNewNote();
-        dialog.show(getSupportFragmentManager(), "");
-        final Button button = (Button)findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
+
+//        final Button button = (Button)findViewById(R.id.button);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                DialogShowNote dialog = new DialogShowNote();
+//                dialog.sendNoteSelected(tempNote);
+//                dialog.show(getSupportFragmentManager(), "123");
+//            }
+//        });
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                DialogShowNote dialog = new DialogShowNote();
-                dialog.sendNoteSelected(tempNote);
-                dialog.show(getSupportFragmentManager(), "123");
+            public void onClick(View view) {
+                DialogNewNote dialog = new DialogNewNote();
+                dialog.show(getSupportFragmentManager(), "");
             }
         });
     }
