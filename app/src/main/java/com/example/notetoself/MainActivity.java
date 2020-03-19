@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +24,8 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    private JSONSerializer serializer;
+    private ArrayList<Note> noteList;
     ArrayList<Note> listNote = new ArrayList<>();
     RecyclerView recyclerView;
     NoteAdapter adapter;
@@ -30,9 +33,23 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences prefs;
 
     public void createNewNote(Note note){
-        listNote.add(note);
+        noteList.add(note);
         adapter.notifyDataSetChanged();
     }
+    public void saveNotes() {
+        try {
+            serializer.save(noteList);
+        } catch (Exception e) {
+            Log.e("Error saving Notes", "", e);
+        }
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        saveNotes();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +57,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        serializer = new JSONSerializer("NoteToSelf.json", getApplicationContext());
+        try {
+            noteList = serializer.load();
+            Log.i("load notes", "" + noteList.size());
+        } catch (Exception e) {
+            noteList = new ArrayList<>();
+            Log.e("Error loading notes: ", "", e);
+        }
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        adapter = new NoteAdapter(this, listNote);
+        adapter = new NoteAdapter(this, noteList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -84,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void showNote(int index) {
         DialogShowNote dialog = new DialogShowNote();
-        dialog.sendNoteSelected(listNote.get(index));
+        dialog.sendNoteSelected(noteList.get(index));
         dialog.show(getSupportFragmentManager(), "");
     }
     @Override
