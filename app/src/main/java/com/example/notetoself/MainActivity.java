@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private JSONSerializer serializer;
     private ArrayList<Note> noteList;
-    ArrayList<Note> listNote = new ArrayList<>();
+//    ArrayList<Note> listNote = new ArrayList<>();
     RecyclerView recyclerView;
     NoteAdapter adapter;
     private boolean showDividers;

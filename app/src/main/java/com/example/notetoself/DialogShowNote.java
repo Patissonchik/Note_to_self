@@ -42,7 +42,7 @@ public class DialogShowNote extends DialogFragment {
                 dismiss();
             }
         });
-        builder.setView(dialogView);
+        builder.setView(dialogView).setMessage(getResources().getString(R.string.your_note));
         return builder.create();
     }
     public void sendNoteSelected (Note noteSelected){

@@ -25,7 +25,7 @@ public class DialogNewNote extends DialogFragment {
         final Button btnCancel = (Button) dialogView.findViewById(R.id.btnCancel);
         final Button btnOk =(Button) dialogView.findViewById(R.id.buttonOk);
 
-        builder.setView(dialogView).setMessage("Add a new note");
+        builder.setView(dialogView).setMessage(getResources().getString(R.string.add_new_note));
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
