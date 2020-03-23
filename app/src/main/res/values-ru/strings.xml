@@ -8,13 +8,12 @@
     <string name="todo_text">Сделать</string>
     <string name="cancel_button">Отмена</string>
     <string name="ok_button">ОК</string>
-
+    <string name="add_new_note" >Новая pаметка</string>
+    <string name="your_note">Твоя заметочка</string>
     <string name="settings_title">Настройки</string>
     <string name="theme_title">Theme</string>
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
     <string name="app_name">Заметочки Бокича</string>
     <string name="action_settings">Настройки</string>
-    <string name="add_new_note" >Новая аметка</string>
-    <string name="your_note">Твоя заметочка</string>
 </resources>
